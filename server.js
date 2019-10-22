@@ -3,15 +3,14 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const app = express();
 const Singleton = require('./config/db');
-const mongoose = require('mongoose');
 // parse requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// default route
-//app.get('/', (req, res) => {
-//  res.json({ message: 'Welcome to ZeptoBook Product app' });
-//});
+//default route
+app.get('/', function(req, res) {
+  return res.send({ error: true, message: 'hello' });
+});
 
 // listen on port 3000
 app.listen(3000, () => {
