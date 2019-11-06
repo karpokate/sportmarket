@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 const categoriesSchema = mongoose.Schema({
-  categoty_name: {
+  category_name: {
     type: String
   },
-  create_data: {
+  create_date: {
     type: Date,
     default: Date.now
   }

@@ -4,7 +4,7 @@ const stocksSchema = mongoose.Schema({
   quantity: {
     type: String
   },
-  data: {
+  date: {
     type: Date,
     default: Date.now
   },
