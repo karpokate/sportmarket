@@ -1,6 +1,7 @@
 //import Builder from './builder'; extends Builder
 
-const Brand = require('../models/brands');
+const Brand = require("../models/brands");
+const mongoose = require("mongoose"); //? ? ?
 
 //CRUD
 // C - Create
@@ -11,7 +12,7 @@ const Brand = require('../models/brands');
 //create brand element (from brand model)
 exports.create = (req, res) => {
   if (!req.body) {
-    return res.status(400).send({ message: 'Brand content cannot be empty' });
+    return res.status(400).send({ message: "Brand content cannot be empty" });
   }
   //new object from model
   const brand = new Brand({
@@ -27,7 +28,7 @@ exports.create = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message || 'Something wrong while creating the brand'
+        message: err.message || "Something wrong while creating the brand"
       });
     });
 };
@@ -40,7 +41,7 @@ exports.readAll = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message || ' Something wrong while retrieving brands'
+        message: err.message || " Something wrong while retrieving brands"
       });
     });
 };
@@ -50,20 +51,20 @@ exports.readOne = (req, res) => {
     .then(brand => {
       if (!brand) {
         return res.status(404).send({
-          message: 'Brand not found with id' + req.params.brandId
+          message: "Brand not found with id" + req.params.brandId
         });
       }
       res.send(brand);
     })
     .catch(err => {
-      if (err.kind === 'ObjectId') {
+      if (err.kind === "ObjectId") {
         return res.status(404).send({
-          message: ' Brand not found with id' + req.params.brandId
+          message: " Brand not found with id" + req.params.brandId
         });
       }
       return res.status(500).send({
         message:
-          ' Something wrong retrieving brand wirh id' + req.params.brandId
+          " Something wrong retrieving brand wirh id" + req.params.brandId
       });
     });
 };
@@ -71,7 +72,7 @@ exports.readOne = (req, res) => {
 exports.update = (req, res) => {
   if (!req.body) {
     return res.status(400).send({
-      message: 'Brand conntent can not be empty'
+      message: "Brand conntent can not be empty"
     });
   }
 };
@@ -81,20 +82,20 @@ exports.delete = (req, res) => {
     .then(brand => {
       if (!product) {
         return res.status(404).send({
-          message: 'Brand cannot be found with id' + req.param.brandId
+          message: "Brand cannot be found with id" + req.param.brandId
         });
       }
-      res.send({ message: 'Brand element deleted successfully' });
+      res.send({ message: "Brand element deleted successfully" });
     })
     .catch(err => {
-      if (err.kind === 'ObjectId' || err.name === 'NotFound') {
+      if (err.kind === "ObjectId" || err.name === "NotFound") {
         return res.status(404).send({
-          message: 'Brand not found with id' + req.param.brandId
+          message: "Brand not found with id" + req.param.brandId
         });
       }
       return res.status(500).send({
         message:
-          'Could not delete this brand element with id' + req.param.brandId
+          "Could not delete this brand element with id" + req.param.brandId
       });
     });
 };

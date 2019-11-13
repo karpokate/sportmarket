@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const categoriesSchema = mongoose.Schema({
   category_name: {
-    type: String
+    type: String,
+    require: true
   },
   create_date: {
     type: Date,
@@ -11,7 +12,7 @@ const categoriesSchema = mongoose.Schema({
 });
 
 const Categories = (module.exports = mongoose.model(
-  'Categories',
+  "Categories",
   categoriesSchema
 ));
 

@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const app = express();
 const Singleton = require("./config/db");
 // parse requests
+// Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -15,7 +16,6 @@ app.listen(3000, () => {
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
 // Connect to database
-//connectDB();
 singleton = new Singleton();
 
 //make now code without patterns
@@ -29,13 +29,12 @@ app.get("/", (req, res) => {
 
 //connect routes
 const brands = require("./services(route)/api/brands");
-//const categories = require("./services(route)/api/categories");
-const products = require("./services(route)/api/products");
+const categories = require("./services(route)/api/categories");
 const stocks = require("./services(route)/api/stocks");
+const product = require("./services(route)/api/products");
 
 //use routes
-
 app.use("/api/brands", brands);
-//app.use("./api/categories", categories);
-app.use("./api/products", products);
-app.use("./api/stocks", stocks);
+app.use("/api/categories", categories);
+app.use("/api/stocks", stocks);
+app.use("/api/product", product);

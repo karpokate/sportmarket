@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 //close schema (table)
 const productSchema = mongoose.Schema({
@@ -13,25 +13,20 @@ const productSchema = mongoose.Schema({
   },
   brand: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'brand',
-    required: true
+    ref: "brand"
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'categoties',
-    required: true
+    ref: "categoties"
   },
   description: {
-    type: String,
-    required: true
+    type: String
   },
   image_url: {
-    type: String,
-    required: true
+    type: String
   },
   price: {
-    type: String,
-    required: true
+    type: String
   },
   create_date: {
     type: Date,
@@ -39,5 +34,5 @@ const productSchema = mongoose.Schema({
   }
 });
 
-const Product = (module.exports = mongoose.model('Product', productSchema));
+const Product = (module.exports = mongoose.model("Product", productSchema));
 module.exports = Product;
