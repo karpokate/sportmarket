@@ -1,12 +1,16 @@
+var createError = require("http-errors");
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+
 const app = express();
+//connect db
 const Singleton = require("./config/db");
-// parse requests
+
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+//help our server be optim. & savety
 
 // listen on port 3000
 app.listen(3000, () => {
@@ -18,6 +22,18 @@ dotenv.config({ path: "./config/config.env" });
 // Connect to database
 singleton = new Singleton();
 
+//connect routs (with facade)
+const brandRouter = require("./services(route)/api/brands");
+const categoryRouter = require("./services(route)/api/categories");
+const stockRouter = require("./services(route)/api/stocks");
+const productRouter = require("./services(route)/api/products");
+const Facade = require("./services(route)/api/facade");
+app.use("/", brandRouter);
+app.use("/", categoryRouter);
+app.use("/", stockRouter);
+app.use("/", productRouter);
+app.use("/catalog", Facade); // Add catalog routes to middleware chain.
+
 //make now code without patterns
 //first test get with info
 app.get("/", (req, res) => {
@@ -27,21 +43,20 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
-/*
-const brands = require("./services(route)/api/brands");
-const categories = require("./services(route)/api/categories");
-const stocks = require("./services(route)/api/stocks");
-const product = require("./services(route)/api/products");
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
-
-app.use("/api/brands", brands);
-app.use("/api/categories", categories);
-app.use("/api/stocks", stocks);
-app.use("/api/product", product);
-*/
-const Facade = require("./services(route)/api/facade");
-//connect to facade (REST)
-facade = new Facade();
-app.use('/',facade);
-
+  // render the error page
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: err
+  });
+});

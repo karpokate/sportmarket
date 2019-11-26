@@ -2,22 +2,23 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 //close schema (table)
 const productSchema = new Schema({
+  productName: {
+    type: String,
+    require: true
+  },
   artikul: {
     //smth like id
     type: String,
     require: true
   },
-  productName: {
-    type: String,
-    require: true
-  },
   brand: {
     type: Schema.Types.ObjectId,
-    ref: "brand"
+    ref: "brand",
+    required: true
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: "categoties",
+    ref: "categories",
     required: true
   },
   description: {
@@ -32,9 +33,10 @@ const productSchema = new Schema({
     require: true,
     max: 100
   },
-  create_date: {
-    type: Date,
-    default: Date.now
+  stock: {
+    type: Schema.Types.ObjectId,
+    ref: "stocks",
+    required: true
   }
 });
 

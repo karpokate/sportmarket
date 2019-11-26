@@ -8,11 +8,6 @@ const stocksSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
-  },
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "products",
-    required: true
   }
 });
 // Virtual for this stock instance URL.

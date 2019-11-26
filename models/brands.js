@@ -8,10 +8,6 @@ const brandsSchema = new Schema({
   },
   country_of_brand: {
     type: String
-  },
-  create_date: {
-    type: Date,
-    default: Date.now
   }
 });
 // Virtual for this brand instance URL.

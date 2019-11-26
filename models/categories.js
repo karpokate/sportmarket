@@ -4,12 +4,7 @@ var Schema = mongoose.Schema;
 const categoriesSchema = new Schema({
   category_name: {
     type: String,
-    require: true,
-    max: 100
-  },
-  create_date: {
-    type: Date,
-    default: Date.now
+    require: true
   }
 });
 // Virtual for this categories instance URL.
