@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
-
-const brandsSchema = mongoose.Schema({
+const mongoose = require("mongoose");
+var Schema = mongoose.Schema;
+const brandsSchema = new Schema({
   brand: {
-    type: String
+    type: String,
+    require: true,
+    max: 100
   },
   country_of_brand: {
     type: String
@@ -12,7 +14,11 @@ const brandsSchema = mongoose.Schema({
     default: Date.now
   }
 });
+// Virtual for this brand instance URL.
+brandsSchema.virtual("url").get(function() {
+  return "/catalog/brand/" + this._id;
+});
 
-const Brands = (module.exports = mongoose.model('Brands', brandsSchema));
-
+//Export model.
+const Brands = (module.exports = mongoose.model("Brands", brandsSchema));
 module.exports = Brands;

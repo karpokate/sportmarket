@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-
+var Schema = mongoose.Schema;
 //close schema (table)
-const productSchema = mongoose.Schema({
+const productSchema = new Schema({
   artikul: {
     //smth like id
     type: String,
@@ -12,21 +12,25 @@ const productSchema = mongoose.Schema({
     require: true
   },
   brand: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "brand"
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "categoties"
+    type: Schema.Types.ObjectId,
+    ref: "categoties",
+    required: true
   },
   description: {
-    type: String
+    type: String,
+    max: 256
   },
   image_url: {
     type: String
   },
   price: {
-    type: String
+    type: String,
+    require: true,
+    max: 100
   },
   create_date: {
     type: Date,
@@ -34,5 +38,11 @@ const productSchema = mongoose.Schema({
   }
 });
 
+// Virtual for this product instance URL.
+productSchema.virtual("url").get(function() {
+  return "/catalog/product/" + this._id;
+});
+
+//Exports model.
 const Product = (module.exports = mongoose.model("Product", productSchema));
 module.exports = Product;

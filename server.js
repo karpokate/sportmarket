@@ -23,22 +23,25 @@ singleton = new Singleton();
 app.get("/", (req, res) => {
   res.json({
     message:
-      "Please use /api/products or /api/categories or /api/brands or /api/stocks"
+      "Please use /api/product or /api/categories or /api/brands or /api/stocks"
   });
 });
 
-/*//connect routes
+
+/*
 const brands = require("./services(route)/api/brands");
 const categories = require("./services(route)/api/categories");
 const stocks = require("./services(route)/api/stocks");
 const product = require("./services(route)/api/products");
 
-//use routes
+
 app.use("/api/brands", brands);
 app.use("/api/categories", categories);
 app.use("/api/stocks", stocks);
-app.use("/api/product", product);*/
-
+app.use("/api/product", product);
+*/
 const Facade = require("./services(route)/api/facade");
 //connect to facade (REST)
 facade = new Facade();
+app.use('/',facade);
+
